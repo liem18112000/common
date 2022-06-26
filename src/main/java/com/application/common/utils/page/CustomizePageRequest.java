@@ -1,4 +1,4 @@
-package com.application.common.utils;
+package com.application.common.utils.page;
 
 import org.springframework.data.domain.Pageable;
 

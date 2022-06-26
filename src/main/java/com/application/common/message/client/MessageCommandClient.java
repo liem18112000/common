@@ -1,7 +1,7 @@
 package com.application.common.message.client;
 
 import com.application.common.dto.BaseDto;
-import com.application.common.message.RestMessage;
+import com.application.common.message.BaseMessage;
 import java.io.Serializable;
 
 /**
@@ -19,7 +19,7 @@ public interface MessageCommandClient
    * @param dto the dto
    * @return the dto
    */
-  RestMessage<DTO> create(DTO dto);
+  BaseMessage<DTO> create(DTO dto);
 
   /**
    * Update dto.
@@ -28,7 +28,7 @@ public interface MessageCommandClient
    * @param dto the dto
    * @return the dto
    */
-  RestMessage<DTO> update(ID id, DTO dto);
+  BaseMessage<DTO> update(ID id, DTO dto);
 
   /**
    * Delete dto.
@@ -36,6 +36,6 @@ public interface MessageCommandClient
    * @param id the id
    * @return the dto
    */
-  RestMessage<DTO> delete(ID id);
+  BaseMessage<DTO> delete(ID id);
 
 }

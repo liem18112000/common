@@ -1,4 +1,4 @@
-package com.application.common.utils;
+package com.application.common.utils.reflection;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;

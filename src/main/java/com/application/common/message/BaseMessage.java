@@ -1,6 +1,6 @@
 package com.application.common.message;
 
-import com.application.common.message.common.RestMessageOrigin;
+import com.application.common.message.common.MessageOrigin;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
@@ -9,13 +9,13 @@ import lombok.NoArgsConstructor;
 import org.springframework.http.HttpStatus;
 
 /**
- * The type Rest message.
+ * The type Base message.
  *
- * @param <BODY> the body type parameter
+ * @param <BODY> the type parameter
  */
 @NoArgsConstructor
 @Data
-public class RestMessage<BODY> implements Serializable, Cloneable {
+public class BaseMessage<BODY> implements Serializable, Cloneable {
 
   /**
    * The constant serialVersionUID.
@@ -23,9 +23,9 @@ public class RestMessage<BODY> implements Serializable, Cloneable {
   private static final long serialVersionUID = -1998267748464865180L;
 
   /**
-   * The Rest message type.
+   * The Message type.
    */
-  protected RestMessageType restMessageType = RestMessageType.SEARCH;
+  protected String messageType;
 
   /**
    * The Headers.
@@ -35,7 +35,7 @@ public class RestMessage<BODY> implements Serializable, Cloneable {
   /**
    * The Origin.
    */
-  protected RestMessageOrigin origin = new RestMessageOrigin();
+  protected MessageOrigin origin = new MessageOrigin();
 
   /**
    * The Http status.
@@ -48,16 +48,16 @@ public class RestMessage<BODY> implements Serializable, Cloneable {
   protected BODY body;
 
   /**
-   * Clone rest message.
+   * Clone base message.
    *
-   * @return the rest message
+   * @return the base message
    */
   @Override
-  public RestMessage<BODY> clone() {
-    var message = new RestMessage<BODY>();
+  public BaseMessage<BODY> clone() {
+    var message = new BaseMessage<BODY>();
     message.setHttpStatus(this.getHttpStatus());
     message.setOrigin(this.getOrigin());
-    message.setRestMessageType(this.getRestMessageType());
+    message.setMessageType(this.getMessageType());
     message.setBody(this.getBody());
     message.setHeaders(this.getHeaders());
     return message;

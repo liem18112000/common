@@ -1,9 +1,8 @@
 package com.application.common.message.client;
 
 import com.application.common.dto.BaseDto;
-import com.application.common.message.RestMessage;
+import com.application.common.message.BaseMessage;
 import java.io.Serializable;
-import java.util.List;
 
 /**
  * The interface Message query client.
@@ -21,7 +20,7 @@ public interface MessageQueryClient
    * @param id the id
    * @return the by id
    */
-  RestMessage<DTO> getById(ID id);
+  BaseMessage<DTO> getById(ID id);
 
   /**
    * Search rest message.
@@ -29,6 +28,6 @@ public interface MessageQueryClient
    * @param dto the dto
    * @return the rest message
    */
-  RestMessage<List<DTO>> search(DTO dto);
+  BaseMessage<DTO> search(DTO dto);
 
 }

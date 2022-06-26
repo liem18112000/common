@@ -6,12 +6,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * The type Rest message origin.
+ * The type Message origin.
  */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class RestMessageOrigin implements Serializable {
+public class MessageOrigin implements Serializable {
 
   /**
    * The constant serialVersionUID.
