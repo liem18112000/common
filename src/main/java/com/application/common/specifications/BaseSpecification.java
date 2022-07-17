@@ -21,6 +21,11 @@ import org.springframework.data.jpa.domain.Specification;
 public final class BaseSpecification<T> implements Specification<T> {
 
   /**
+   * The constant serialVersionUID.
+   */
+  private static final long serialVersionUID = -3984908227940188335L;
+
+  /**
    * The Criteria.
    */
   private SearchCriteria criteria;

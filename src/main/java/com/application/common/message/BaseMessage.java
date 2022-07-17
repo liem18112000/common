@@ -1,6 +1,8 @@
 package com.application.common.message;
 
 import com.application.common.message.common.MessageOrigin;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
@@ -15,6 +17,7 @@ import org.springframework.http.HttpStatus;
  */
 @NoArgsConstructor
 @Data
+@JsonInclude(Include.NON_NULL)
 public class BaseMessage<BODY> implements Serializable, Cloneable {
 
   /**
@@ -46,6 +49,11 @@ public class BaseMessage<BODY> implements Serializable, Cloneable {
    * The Body.
    */
   protected BODY body;
+
+  /**
+   * The Error message.
+   */
+  protected String errorMessage = null;
 
   /**
    * Clone base message.

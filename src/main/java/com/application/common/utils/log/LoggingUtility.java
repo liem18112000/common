@@ -1,40 +1,15 @@
-package com.application.common.logging;
+package com.application.common.utils.log;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.Around;
-import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.springframework.stereotype.Component;
 import org.springframework.util.ReflectionUtils;
 import org.springframework.util.StopWatch;
 
-/**
- * The type Process logging handler.
- */
-@Aspect
-@Component
 @Slf4j
-public class ProcessLoggingHandler {
-
-  /**
-   * The constant LOG_SERVICE.
-   */
-  private static final String LOG_SERVICE = "execution(* com.liem..*Controller.*(..))";
-
-  /**
-   * Advise. Logs the advised method.
-   *
-   * @param joinPoint represents advised method
-   * @return method execution result
-   * @throws Throwable in case of exception
-   */
-  @Around(LOG_SERVICE)
-  public Object logProcess(ProceedingJoinPoint joinPoint) throws Throwable {
-    return process(joinPoint, new StopWatch(), getPackageName(joinPoint, extractMethod(joinPoint)));
-  }
+public class LoggingUtility {
 
   /**
    * Extract name of package name
@@ -43,7 +18,7 @@ public class ProcessLoggingHandler {
    * @param method    process method
    * @return String package name
    */
-  private String getPackageName(ProceedingJoinPoint joinPoint, Method method) {
+  public static String getPackageName(ProceedingJoinPoint joinPoint, Method method) {
     return joinPoint.getTarget().getClass().getSimpleName().concat(".").concat(method.getName());
   }
 
@@ -53,16 +28,18 @@ public class ProcessLoggingHandler {
    * @param joinPoint   represents advised method
    * @param stopWatch   process logging stop watch
    * @param packageName process package name
+   * @param type        the type
    * @return process result objects
    * @throws Throwable in case of exception
    */
-  private Object process(ProceedingJoinPoint joinPoint, StopWatch stopWatch, String packageName)
+  public static Object process(
+      ProceedingJoinPoint joinPoint, StopWatch stopWatch, String packageName, String type)
       throws Throwable {
-    log.info("Start API --- {} ---", packageName);
+    log.info("Start {} --- {} ---", type, packageName);
     stopWatch.start();
     final Object retVal = joinPoint.proceed();
     stopWatch.stop();
-    log.info("End API --- {} --- in [{}] ms", packageName, stopWatch.getTotalTimeMillis());
+    log.info("End {} --- {} --- in [{}] ms", type, packageName, stopWatch.getTotalTimeMillis());
     return retVal;
   }
 
@@ -73,7 +50,7 @@ public class ProcessLoggingHandler {
    * @return Method method
    * @throws NoSuchMethodException in case of exception
    */
-  private Method extractMethod(ProceedingJoinPoint joinPoint) throws NoSuchMethodException {
+  public static Method extractMethod(ProceedingJoinPoint joinPoint) throws NoSuchMethodException {
     final MethodSignature signature = (MethodSignature) joinPoint.getSignature();
     final Class<?> targetClass = joinPoint.getTarget().getClass();
     if (Modifier.isPublic(signature.getMethod().getModifiers())) {
